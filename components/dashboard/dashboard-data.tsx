@@ -1,17 +1,12 @@
-import { SiPython, SiJavascript, SiReact } from "react-icons/si";
-import {
-  CheckCircle,
-  Award,
-  Trophy,
-  CloudLightningIcon as Lightning,
-} from "lucide-react";
-import type { Course } from "./course-card";
-import type { Quest } from "./quest-item";
-import type { ActivityItem } from "./activity-feed";
-import type { Achievement } from "./achievements-list";
-import type { UserData } from "./welcome-section";
-import type { StreakDay } from "./daily-streak-card";
-import type { Event } from "./upcoming-events-card";
+import { SiPython, SiJavascript, SiReact } from "react-icons/si"
+import { CheckCircle, Award, Trophy, CloudLightningIcon as Lightning } from "lucide-react"
+import type { Course } from "./course-card"
+import type { Quest } from "./quest-item"
+import type { ActivityItem } from "./activity-feed"
+import type { Achievement } from "./achievements-list"
+import type { UserData } from "./welcome-section"
+import type { StreakDay } from "./daily-streak-card"
+import type { Event } from "./upcoming-events-card"
 
 // User data
 export const userData: UserData = {
@@ -26,15 +21,14 @@ export const userData: UserData = {
   streak: 3,
   achievements: 7,
   daysActive: 42,
-};
+}
 
 // Course data
 export const coursesData: Course[] = [
   {
     id: "javascript-fundamentals",
     title: "JavaScript Fundamentals",
-    description:
-      "Learn the core concepts of JavaScript with practical examples and interactive exercises",
+    description: "Learn the core concepts of JavaScript with practical examples and interactive exercises",
     instructor: "Alex Johnson",
     earnedXP: 750,
     totalXP: 1000,
@@ -55,8 +49,7 @@ export const coursesData: Course[] = [
   {
     id: "react-essentials",
     title: "React Essentials",
-    description:
-      "Master React.js through hands-on projects and component-based architecture",
+    description: "Master React.js through hands-on projects and component-based architecture",
     instructor: "Sarah Miller",
     earnedXP: 450,
     totalXP: 1000,
@@ -77,8 +70,7 @@ export const coursesData: Course[] = [
   {
     id: "python-basics",
     title: "Python Basics",
-    description:
-      "Learn the fundamentals of Python programming language with hands-on projects and exercises",
+    description: "Learn the fundamentals of Python programming language with hands-on projects and exercises",
     instructor: "Michael Chen",
     earnedXP: 900,
     totalXP: 1000,
@@ -96,46 +88,16 @@ export const coursesData: Course[] = [
     isLiked: true,
     url: "/my-learning/python-basics",
   },
-];
+]
 
 // Daily quests data
 export const questsData: Quest[] = [
-  {
-    id: "1",
-    text: "Complete JavaScript Module 7",
-    xp: 50,
-    completed: true,
-    type: "study",
-  },
-  {
-    id: "2",
-    text: "Solve 3 Python challenges",
-    xp: 75,
-    completed: false,
-    type: "challenge",
-  },
-  {
-    id: "3",
-    text: "Watch React Component tutorial",
-    xp: 30,
-    completed: false,
-    type: "study",
-  },
-  {
-    id: "4",
-    text: "Submit weekly assignment",
-    xp: 100,
-    completed: false,
-    type: "practice",
-  },
-  {
-    id: "5",
-    text: "Help in community forum",
-    xp: 25,
-    completed: true,
-    type: "practice",
-  },
-];
+  { id: "1", text: "Complete JavaScript Module 7", xp: 50, completed: true, type: "study" },
+  { id: "2", text: "Solve 3 Python challenges", xp: 75, completed: false, type: "challenge" },
+  { id: "3", text: "Watch React Component tutorial", xp: 30, completed: false, type: "study" },
+  { id: "4", text: "Submit weekly assignment", xp: 100, completed: false, type: "practice" },
+  { id: "5", text: "Help in community forum", xp: 25, completed: true, type: "practice" },
+]
 
 // Activity feed data
 export const activityFeedData: ActivityItem[] = [
@@ -145,14 +107,14 @@ export const activityFeedData: ActivityItem[] = [
     time: "Today, 9:25 AM",
     xp: 75,
     type: "chapter",
-    icon: "check-circle-green",
+    icon: <CheckCircle className="text-green-500" />,
   },
   {
     id: 2,
     title: "Earned 'Fast Learner' Badge",
     time: "Yesterday, 4:15 PM",
     type: "badge",
-    icon: "award-amber",
+    icon: <Award className="text-amber-500" />,
   },
   {
     id: 3,
@@ -160,7 +122,7 @@ export const activityFeedData: ActivityItem[] = [
     time: "Yesterday, 2:30 PM",
     xp: 0,
     type: "level",
-    icon: "trophy-primary",
+    icon: <Trophy className="text-primary" />,
   },
   {
     id: 4,
@@ -168,34 +130,16 @@ export const activityFeedData: ActivityItem[] = [
     time: "Apr 5, 11:20 AM",
     xp: 25,
     type: "forum",
-    icon: "lightning-blue",
+    icon: <Lightning className="text-blue-500" />,
   },
-];
+]
 
 // Achievements data
 export const achievementsData: Achievement[] = [
-  {
-    id: 1,
-    title: "Fast Learner",
-    description: "Complete 3 lessons in a day",
-    progress: 100,
-    icon: "🚀",
-  },
-  {
-    id: 2,
-    title: "Code Streak",
-    description: "Learn for 7 consecutive days",
-    progress: 43,
-    icon: "🔥",
-  },
-  {
-    id: 3,
-    title: "Quiz Master",
-    description: "Get perfect score on 3 quizzes",
-    progress: 67,
-    icon: "🧠",
-  },
-];
+  { id: 1, title: "Fast Learner", description: "Complete 3 lessons in a day", progress: 100, icon: "🚀" },
+  { id: 2, title: "Code Streak", description: "Learn for 7 consecutive days", progress: 43, icon: "🔥" },
+  { id: 3, title: "Quiz Master", description: "Get perfect score on 3 quizzes", progress: 67, icon: "🧠" },
+]
 
 // Weekly streak data
 export const weeklyStreakData: StreakDay[] = [
@@ -206,7 +150,7 @@ export const weeklyStreakData: StreakDay[] = [
   { day: "Th", completed: true },
   { day: "F", completed: false },
   { day: "Sa", completed: false },
-];
+]
 
 // Upcoming events data
 export const upcomingEventsData: Event[] = [
@@ -234,7 +178,7 @@ export const upcomingEventsData: Event[] = [
     type: "deadline",
     course: "React Essentials",
   },
-];
+]
 
 // Player stats
 export const playerStatsData = {
@@ -242,4 +186,4 @@ export const playerStatsData = {
   achievements: 7,
   problemsSolved: 42,
   daysActive: 42,
-};
+}

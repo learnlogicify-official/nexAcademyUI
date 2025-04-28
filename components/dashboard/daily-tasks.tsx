@@ -1,40 +1,71 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
-import { Clock, Star, Trophy, Plus, X, Check } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from "@/components/ui/dialog"
-import { Label } from "@/components/ui/label"
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { Clock, Star, Trophy, Plus, X, Check } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+  DialogClose,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 
-type TaskType = "study" | "practice" | "challenge"
+type TaskType = "study" | "practice" | "challenge";
 
 interface Task {
-  id: string
-  text: string
-  completed: boolean
-  type: TaskType
-  xp: number
+  id: string;
+  text: string;
+  completed: boolean;
+  type: TaskType;
+  xp: number;
 }
 
 export function DailyTasks() {
   const [tasks, setTasks] = useState<Task[]>([
-    { id: "1", text: "Complete JavaScript tutorial", completed: false, type: "study", xp: 10 },
-    { id: "2", text: "Solve algorithm challenge", completed: true, type: "challenge", xp: 10 },
-    { id: "3", text: "Build a small React component", completed: false, type: "practice", xp: 10 },
-  ])
-  const [newTaskText, setNewTaskText] = useState("")
-  const [taskType, setTaskType] = useState<TaskType>("study")
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
+    {
+      id: "1",
+      text: "Complete JavaScript tutorial",
+      completed: false,
+      type: "study",
+      xp: 10,
+    },
+    {
+      id: "2",
+      text: "Solve algorithm challenge",
+      completed: true,
+      type: "challenge",
+      xp: 10,
+    },
+    {
+      id: "3",
+      text: "Build a small React component",
+      completed: false,
+      type: "practice",
+      xp: 10,
+    },
+  ]);
+  const [newTaskText, setNewTaskText] = useState("");
+  const [taskType, setTaskType] = useState<TaskType>("study");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const addTask = () => {
-    if (newTaskText.trim() === "") return
+    if (newTaskText.trim() === "") return;
 
     const newTask: Task = {
       id: Date.now().toString(),
@@ -42,65 +73,69 @@ export function DailyTasks() {
       completed: false,
       type: taskType,
       xp: 10, // Fixed XP value for all tasks
-    }
+    };
 
-    setTasks([...tasks, newTask])
-    setNewTaskText("")
-    setIsDialogOpen(false)
-  }
+    setTasks([...tasks, newTask]);
+    setNewTaskText("");
+    setIsDialogOpen(false);
+  };
 
   // Calculate XP with daily limit
   const calculateXP = () => {
-    const completedTasksArray = tasks.filter((t) => t.completed)
-    const countedTasks = completedTasksArray.slice(0, 5) // Only count first 5 completed tasks
-    const totalXpEarned = countedTasks.length * 10
-    const maxPossibleXp = Math.min(tasks.length, 5) * 10 // Max 5 tasks count for XP
+    const completedTasksArray = tasks.filter((t) => t.completed);
+    const countedTasks = completedTasksArray.slice(0, 5); // Only count first 5 completed tasks
+    const totalXpEarned = countedTasks.length * 10;
+    const maxPossibleXp = Math.min(tasks.length, 5) * 10; // Max 5 tasks count for XP
 
     return {
       completedCount: completedTasksArray.length,
       countedForXP: countedTasks.length,
       earnedXP: totalXpEarned,
       maxPossibleXP: maxPossibleXp,
-    }
-  }
+    };
+  };
 
-  const xpStats = calculateXP()
+  const xpStats = calculateXP();
 
   const toggleTaskCompletion = (id: string) => {
-    setTasks(tasks.map((task) => (task.id === id ? { ...task, completed: !task.completed } : task)))
-  }
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
 
   const removeTask = (id: string) => {
-    setTasks(tasks.filter((task) => task.id !== id))
-  }
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
-      addTask()
+      addTask();
     }
-  }
+  };
 
   const getTaskTypeIcon = (type: TaskType) => {
     switch (type) {
       case "study":
-        return <Clock className="h-4 w-4 text-blue-500" />
+        return <Clock className="h-4 w-4 text-blue-500" />;
       case "practice":
-        return <Star className="h-4 w-4 text-amber-500" />
+        return <Star className="h-4 w-4 text-amber-500" />;
       case "challenge":
-        return <Trophy className="h-4 w-4 text-purple-500" />
+        return <Trophy className="h-4 w-4 text-purple-500" />;
     }
-  }
+  };
 
   const getTaskTypeClass = (type: TaskType) => {
     switch (type) {
       case "study":
-        return "bg-blue-500/10 text-blue-500"
+        return "bg-blue-500/10 text-blue-500";
       case "practice":
-        return "bg-amber-500/10 text-amber-500"
+        return "bg-amber-500/10 text-amber-500";
       case "challenge":
-        return "bg-purple-500/10 text-purple-500"
+        return "bg-purple-500/10 text-purple-500";
     }
-  }
+  };
 
   return (
     <Card className="h-full flex flex-col">
@@ -109,23 +144,18 @@ export function DailyTasks() {
           <CardTitle className="text-lg">Daily To-Do List</CardTitle>
           <Button
             onClick={() => setIsDialogOpen(true)}
-            size="xs"
+            size="sm"
             className="flex items-center gap-1 h-7 px-2 text-xs mr-1"
           >
             <Plus className="h-3 w-3" />
             <span>Add Task</span>
           </Button>
         </div>
-        <div className="flex justify-between items-center mt-2.5">
-          <Badge className="bg-primary/10 text-primary min-w-[90px] flex items-center justify-center whitespace-nowrap">
-            +{xpStats.earnedXP}/{xpStats.maxPossibleXP} XP
-          </Badge>
-          <div className="text-xs text-muted-foreground">
-            {xpStats.completedCount}/{tasks.length} Completed
-            {xpStats.completedCount > 5 && ` (${xpStats.countedForXP} counted for XP)`}
-          </div>
-        </div>
-        <Progress value={(xpStats.completedCount / Math.max(1, tasks.length)) * 100} className="h-2 mt-2" />
+        {tasks.length > 0 && (
+          <CardDescription className="text-xs mt-1">
+            Daily limit: 5 tasks counted for XP (max 50 XP per day)
+          </CardDescription>
+        )}
       </CardHeader>
       <CardContent className="flex-1 flex flex-col">
         {/* Task add dialog */}
@@ -197,10 +227,10 @@ export function DailyTasks() {
               .sort((a, b) => {
                 // Sort by completion status (incomplete first)
                 if (a.completed !== b.completed) {
-                  return a.completed ? 1 : -1
+                  return a.completed ? 1 : -1;
                 }
                 // If same completion status, sort by XP (higher XP first)
-                return b.xp - a.xp
+                return b.xp - a.xp;
               })
               .map((task) => (
                 <motion.div
@@ -217,13 +247,21 @@ export function DailyTasks() {
                         size="icon"
                         variant="ghost"
                         onClick={() => toggleTaskCompletion(task.id)}
-                        className={`w-6 h-6 rounded-full ${task.completed ? "bg-green-500 text-white hover:bg-green-600" : "border"}`}
+                        className={`w-6 h-6 rounded-full ${
+                          task.completed
+                            ? "bg-green-500 text-white hover:bg-green-600"
+                            : "border"
+                        }`}
                       >
                         {task.completed && <Check className="h-3 w-3" />}
                       </Button>
                       <div className="flex flex-col">
                         <span
-                          className={`text-sm font-medium ${task.completed ? "line-through text-muted-foreground" : ""}`}
+                          className={`text-sm font-medium ${
+                            task.completed
+                              ? "line-through text-muted-foreground"
+                              : ""
+                          }`}
                         >
                           {task.text}
                         </span>
@@ -231,7 +269,8 @@ export function DailyTasks() {
                           <div className="flex items-center">
                             {getTaskTypeIcon(task.type)}
                             <span className="text-xs text-muted-foreground ml-1">
-                              {task.type.charAt(0).toUpperCase() + task.type.slice(1)}
+                              {task.type.charAt(0).toUpperCase() +
+                                task.type.slice(1)}
                             </span>
                           </div>
                         </div>
@@ -240,7 +279,9 @@ export function DailyTasks() {
                     <div className="flex items-center gap-2">
                       <Badge
                         variant="outline"
-                        className={`${getTaskTypeClass(task.type)} min-w-[60px] flex items-center justify-center`}
+                        className={`${getTaskTypeClass(
+                          task.type
+                        )} min-w-[60px] flex items-center justify-center`}
                       >
                         +10 XP
                       </Badge>
@@ -265,12 +306,23 @@ export function DailyTasks() {
           </div>
         )}
 
-        {tasks.length > 0 && (
-          <div className="text-center mt-4 text-xs text-muted-foreground mt-auto">
-            <p>Daily limit: 5 tasks counted for XP (max 50 XP per day)</p>
+        <div className="mt-auto pt-4">
+          <div className="flex justify-between items-center mb-2">
+            <Badge className="bg-primary/10 text-primary min-w-[90px] flex items-center justify-center whitespace-nowrap">
+              +{xpStats.earnedXP}/{xpStats.maxPossibleXP} XP
+            </Badge>
+            <div className="text-xs text-muted-foreground">
+              {xpStats.completedCount}/{tasks.length} Completed
+              {xpStats.completedCount > 5 &&
+                ` (${xpStats.countedForXP} counted for XP)`}
+            </div>
           </div>
-        )}
+          <Progress
+            value={(xpStats.completedCount / Math.max(1, tasks.length)) * 100}
+            className="h-2"
+          />
+        </div>
       </CardContent>
     </Card>
-  )
+  );
 }

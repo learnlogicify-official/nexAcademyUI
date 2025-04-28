@@ -1,15 +1,15 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { BookOpen, Trophy, Target, Clock } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { BookOpen, Trophy, Target, Clock } from "lucide-react";
 
 interface PlayerStats {
-  coursesEnrolled: number
-  achievements: number
-  problemsSolved: number
-  daysActive: number
+  coursesEnrolled: number;
+  achievements: number;
+  problemsSolved: number;
+  daysActive: number;
 }
 
 interface PlayerStatsCardProps {
-  stats: PlayerStats
+  stats: PlayerStats;
 }
 
 export function PlayerStatsCard({ stats }: PlayerStatsCardProps) {
@@ -23,7 +23,9 @@ export function PlayerStatsCard({ stats }: PlayerStatsCardProps) {
           <div className="flex flex-col items-center justify-center p-3 bg-muted rounded-lg">
             <BookOpen className="h-5 w-5 text-blue-500 mb-1" />
             <span className="text-lg font-bold">{stats.coursesEnrolled}</span>
-            <span className="text-xs text-muted-foreground">Courses Enrolled</span>
+            <span className="text-xs text-muted-foreground">
+              Courses Enrolled
+            </span>
           </div>
           <div className="flex flex-col items-center justify-center p-3 bg-muted rounded-lg">
             <Trophy className="h-5 w-5 text-amber-500 mb-1" />
@@ -33,7 +35,9 @@ export function PlayerStatsCard({ stats }: PlayerStatsCardProps) {
           <div className="flex flex-col items-center justify-center p-3 bg-muted rounded-lg">
             <Target className="h-5 w-5 text-green-500 mb-1" />
             <span className="text-lg font-bold">{stats.problemsSolved}</span>
-            <span className="text-xs text-muted-foreground">Problems Solved</span>
+            <span className="text-xs text-muted-foreground">
+              Problems Solved
+            </span>
           </div>
           <div className="flex flex-col items-center justify-center p-3 bg-muted rounded-lg">
             <Clock className="h-5 w-5 text-purple-500 mb-1" />
@@ -43,5 +47,5 @@ export function PlayerStatsCard({ stats }: PlayerStatsCardProps) {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

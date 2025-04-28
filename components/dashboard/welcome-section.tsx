@@ -1,25 +1,24 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Trophy, Flame, Zap } from "lucide-react"
+import { motion } from "framer-motion";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export interface UserData {
-  name: string
-  avatar: string
-  level: number
-  levelTitle: string
-  tier: string
-  tierEmoji: string
-  currentXP: number
-  nextLevelXP: number
-  streak: number
-  achievements: number
-  daysActive: number
+  name: string;
+  avatar: string;
+  level: number;
+  levelTitle: string;
+  tier: string;
+  tierEmoji: string;
+  currentXP: number;
+  nextLevelXP: number;
+  streak: number;
+  achievements: number;
+  daysActive: number;
 }
 
 interface WelcomeSectionProps {
-  userData: UserData
+  userData: UserData;
 }
 
 export function WelcomeSection({ userData }: WelcomeSectionProps) {
@@ -35,19 +34,24 @@ export function WelcomeSection({ userData }: WelcomeSectionProps) {
           <div className="relative">
             <Avatar className="h-12 w-12 border-2 border-primary">
               <AvatarImage src={userData.avatar || "/placeholder.svg"} />
-              <AvatarFallback>{userData.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+              <AvatarFallback>
+                {userData.name.substring(0, 2).toUpperCase()}
+              </AvatarFallback>
             </Avatar>
             <div className="absolute -bottom-1 -right-1 bg-primary text-xs text-white rounded-full h-5 w-5 flex items-center justify-center font-bold">
               {userData.level}
             </div>
           </div>
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">Welcome back, {userData.name}!</h1>
-            <p className="text-muted-foreground">Ready to continue your learning journey?</p>
+            <h1 className="text-2xl font-bold tracking-tight">
+              Welcome back, {userData.name}!
+            </h1>
+            <p className="text-muted-foreground">
+              Ready to continue your learning journey?
+            </p>
           </div>
         </div>
       </div>
-
     </motion.div>
-  )
+  );
 }

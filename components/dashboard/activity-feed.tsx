@@ -1,22 +1,22 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import type { ReactNode } from "react"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
+import { motion } from "framer-motion";
+import type { ReactNode } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 export interface ActivityItem {
-  id: number
-  title: string
-  time: string
-  type: "chapter" | "badge" | "level" | "forum"
-  icon: ReactNode
-  xp?: number
+  id: number;
+  title: string;
+  time: string;
+  type: "chapter" | "badge" | "level" | "forum";
+  icon: ReactNode;
+  xp?: number;
 }
 
 interface ActivityFeedProps {
-  activities: ActivityItem[]
+  activities: ActivityItem[];
 }
 
 export function ActivityFeed({ activities }: ActivityFeedProps) {
@@ -32,11 +32,16 @@ export function ActivityFeed({ activities }: ActivityFeedProps) {
             transition={{ delay: index * 0.1, duration: 0.3 }}
           >
             <div className="bg-secondary p-2 rounded-full">{activity.icon}</div>
-            <div className="flex-1">
-              <div className="flex justify-between items-start">
-                <p className="font-medium">{activity.title}</p>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-start gap-1">
+                <p className="font-medium truncate flex-1 min-w-0">
+                  {activity.title}
+                </p>
                 {activity.xp && activity.xp > 0 && (
-                  <Badge variant="outline" className="bg-primary/10 text-primary">
+                  <Badge
+                    variant="outline"
+                    className="bg-primary/10 text-primary whitespace-nowrap flex-shrink-0"
+                  >
                     +{activity.xp} XP
                   </Badge>
                 )}
@@ -50,5 +55,5 @@ export function ActivityFeed({ activities }: ActivityFeedProps) {
         View All Activity <ArrowRight className="h-4 w-4" />
       </Button>
     </div>
-  )
+  );
 }

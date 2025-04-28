@@ -1,18 +1,18 @@
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Calendar } from "lucide-react"
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Calendar } from "lucide-react";
 
 export interface Event {
-  id: number
-  title: string
-  date: string
-  time: string
-  type: "quiz" | "live" | "deadline"
-  course: string
+  id: number;
+  title: string;
+  date: string;
+  time: string;
+  type: "quiz" | "live" | "deadline";
+  course: string;
 }
 
 interface UpcomingEventsCardProps {
-  events: Event[]
+  events: Event[];
 }
 
 export function UpcomingEventsCard({ events }: UpcomingEventsCardProps) {
@@ -26,10 +26,17 @@ export function UpcomingEventsCard({ events }: UpcomingEventsCardProps) {
       </CardHeader>
       <CardContent className="space-y-4">
         {events.map((event) => (
-          <div key={event.id} className="flex gap-3 p-2 rounded-lg hover:bg-muted transition-colors">
+          <div
+            key={event.id}
+            className="flex gap-3 p-2 rounded-lg hover:bg-muted transition-colors"
+          >
             <div className="flex-shrink-0 bg-primary/10 text-primary h-12 w-12 rounded-lg flex flex-col items-center justify-center text-center">
-              <span className="text-xs font-semibold">{event.date.split(" ")[0]}</span>
-              <span className="text-sm font-bold">{event.date.split(" ")[1]}</span>
+              <span className="text-xs font-semibold">
+                {event.date.split(" ")[0]}
+              </span>
+              <span className="text-sm font-bold">
+                {event.date.split(" ")[1]}
+              </span>
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-medium truncate">{event.title}</p>
@@ -42,16 +49,20 @@ export function UpcomingEventsCard({ events }: UpcomingEventsCardProps) {
                   event.type === "quiz"
                     ? "bg-blue-500/10 text-blue-500"
                     : event.type === "live"
-                      ? "bg-green-500/10 text-green-500"
-                      : "bg-amber-500/10 text-amber-500"
+                    ? "bg-green-500/10 text-green-500"
+                    : "bg-amber-500/10 text-amber-500"
                 }`}
               >
-                {event.type === "quiz" ? "Quiz" : event.type === "live" ? "Live Session" : "Deadline"}
+                {event.type === "quiz"
+                  ? "Quiz"
+                  : event.type === "live"
+                  ? "Live Session"
+                  : "Deadline"}
               </Badge>
             </div>
           </div>
         ))}
       </CardContent>
     </Card>
-  )
+  );
 }

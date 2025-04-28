@@ -1,53 +1,68 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts"
-import { ArrowUp, TrendingUp } from "lucide-react"
+import { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from "recharts";
+import { ArrowUp, TrendingUp } from "lucide-react";
 
 // Types
-type TimeRange = "daily" | "weekly" | "monthly"
-type MetricType = "xp" | "problems" | "time"
+type TimeRange = "daily" | "weekly" | "monthly";
+type MetricType = "xp" | "problems" | "time";
 
 interface DataPoint {
-  date: string
-  xp: number
-  problems: number
-  time: number
+  date: string;
+  xp: number;
+  problems: number;
+  time: number;
 }
 
 // Generate mock data
 const generateMockData = (timeRange: TimeRange): DataPoint[] => {
-  const data: DataPoint[] = []
-  const now = new Date()
-  const points = timeRange === "daily" ? 7 : timeRange === "weekly" ? 4 : 12
+  const data: DataPoint[] = [];
+  const now = new Date();
+  const points = timeRange === "daily" ? 7 : timeRange === "weekly" ? 4 : 12;
 
   for (let i = points - 1; i >= 0; i--) {
-    const date = new Date(now)
-    date.setDate(date.getDate() - i)
+    const date = new Date(now);
+    date.setDate(date.getDate() - i);
 
     data.push({
       date:
         timeRange === "daily"
           ? date.toLocaleDateString("en-US", { weekday: "short" })
           : timeRange === "weekly"
-            ? `Week ${i + 1}`
-            : date.toLocaleDateString("en-US", { month: "short" }),
+          ? `Week ${i + 1}`
+          : date.toLocaleDateString("en-US", { month: "short" }),
       xp: Math.floor(Math.random() * 1000) + 500,
       problems: Math.floor(Math.random() * 20) + 10,
       time: Math.floor(Math.random() * 120) + 60,
-    })
+    });
   }
 
-  return data
-}
+  return data;
+};
 
 // Custom tooltip
 interface TooltipProps {
-  active?: boolean
-  payload?: any[]
-  label?: string
+  active?: boolean;
+  payload?: any[];
+  label?: string;
 }
 
 const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
@@ -61,75 +76,77 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
           </p>
         ))}
       </div>
-    )
+    );
   }
-  return null
-}
+  return null;
+};
 
 export function LearningAnalyticsGraph() {
-  const [timeRange, setTimeRange] = useState<TimeRange>("weekly")
-  const [metric, setMetric] = useState<MetricType>("xp")
-  const [data, setData] = useState<DataPoint[]>([])
+  const [timeRange, setTimeRange] = useState<TimeRange>("weekly");
+  const [metric, setMetric] = useState<MetricType>("xp");
+  const [data, setData] = useState<DataPoint[]>([]);
 
   useEffect(() => {
-    setData(generateMockData(timeRange))
-  }, [timeRange])
+    setData(generateMockData(timeRange));
+  }, [timeRange]);
 
   const getMetricColor = (metricType: MetricType): string => {
     switch (metricType) {
       case "xp":
-        return "#4CAF50"
+        return "#4CAF50";
       case "problems":
-        return "#2196F3"
+        return "#2196F3";
       case "time":
-        return "#FF9800"
+        return "#FF9800";
       default:
-        return "#4CAF50"
+        return "#4CAF50";
     }
-  }
+  };
 
   const getMetricLabel = (metricType: MetricType): string => {
     switch (metricType) {
       case "xp":
-        return "XP Earned"
+        return "XP Earned";
       case "problems":
-        return "Problems Solved"
+        return "Problems Solved";
       case "time":
-        return "Time Spent (min)"
+        return "Time Spent (min)";
       default:
-        return ""
+        return "";
     }
-  }
+  };
 
   const getTimeRangeLabel = (range: TimeRange): string => {
     switch (range) {
       case "daily":
-        return "Daily"
+        return "Daily";
       case "weekly":
-        return "Weekly"
+        return "Weekly";
       case "monthly":
-        return "Monthly"
+        return "Monthly";
       default:
-        return "Weekly"
+        return "Weekly";
     }
-  }
+  };
 
   // Calculate summary statistics
   const calculateStats = () => {
-    if (!data.length) return { total: 0, average: 0, change: 0 }
+    if (!data.length) return { total: 0, average: 0, change: 0 };
 
-    const total = data.reduce((sum, item) => sum + item[metric], 0)
-    const average = Math.round(total / data.length)
+    const total = data.reduce((sum, item) => sum + item[metric], 0);
+    const average = Math.round(total / data.length);
 
     // Calculate change percentage (comparing last value to first value)
-    const firstValue = data[0][metric]
-    const lastValue = data[data.length - 1][metric]
-    const change = firstValue ? Math.round(((lastValue - firstValue) / firstValue) * 100) : 0
+    const firstValue = data[0][metric];
+    const lastValue = data[data.length - 1][metric];
+    const change = firstValue
+      ? Math.round(((lastValue - firstValue) / firstValue) * 100)
+      : 0;
 
-    return { total, average, change }
-  }
+    return { total, average, change };
+  };
 
-  const stats = calculateStats()
+  const stats = calculateStats();
 
   return (
     <Card className="w-full">
@@ -137,9 +154,14 @@ export function LearningAnalyticsGraph() {
         <div className="flex items-center justify-between">
           <CardTitle>Learning Progress</CardTitle>
           <div className="flex items-center gap-3">
-            <Select value={timeRange} onValueChange={(value) => setTimeRange(value as TimeRange)}>
+            <Select
+              value={timeRange}
+              onValueChange={(value) => setTimeRange(value as TimeRange)}
+            >
               <SelectTrigger className="w-[130px]">
-                <SelectValue placeholder="Select time range">{getTimeRangeLabel(timeRange)}</SelectValue>
+                <SelectValue placeholder="Select time range">
+                  {getTimeRangeLabel(timeRange)}
+                </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="daily">Daily</SelectItem>
@@ -147,7 +169,10 @@ export function LearningAnalyticsGraph() {
                 <SelectItem value="monthly">Monthly</SelectItem>
               </SelectContent>
             </Select>
-            <Select value={metric} onValueChange={(value) => setMetric(value as MetricType)}>
+            <Select
+              value={metric}
+              onValueChange={(value) => setMetric(value as MetricType)}
+            >
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Select metric" />
               </SelectTrigger>
@@ -164,15 +189,28 @@ export function LearningAnalyticsGraph() {
         {/* Summary statistics */}
         <div className="grid grid-cols-3 gap-4 mb-6">
           <div className="bg-muted rounded-lg p-3">
-            <p className="text-sm text-muted-foreground">Total {getMetricLabel(metric)}</p>
-            <p className="text-2xl font-bold mt-1">{stats.total.toLocaleString()}</p>
-            <p className="text-xs text-muted-foreground mt-1">Over {timeRange} period</p>
+            <p className="text-sm text-muted-foreground">
+              Total {getMetricLabel(metric)}
+            </p>
+            <p className="text-2xl font-bold mt-1">
+              {stats.total.toLocaleString()}
+            </p>
+            <p className="text-xs text-muted-foreground mt-1">
+              Over {timeRange} period
+            </p>
           </div>
           <div className="bg-muted rounded-lg p-3">
             <p className="text-sm text-muted-foreground">Average</p>
-            <p className="text-2xl font-bold mt-1">{stats.average.toLocaleString()}</p>
+            <p className="text-2xl font-bold mt-1">
+              {stats.average.toLocaleString()}
+            </p>
             <p className="text-xs text-muted-foreground mt-1">
-              Per {timeRange === "daily" ? "day" : timeRange === "weekly" ? "week" : "month"}
+              Per{" "}
+              {timeRange === "daily"
+                ? "day"
+                : timeRange === "weekly"
+                ? "week"
+                : "month"}
             </p>
           </div>
           <div className="bg-muted rounded-lg p-3">
@@ -185,16 +223,36 @@ export function LearningAnalyticsGraph() {
                 <TrendingUp className="text-blue-500 h-5 w-5" />
               )}
             </div>
-            <p className="text-xs text-muted-foreground mt-1">From beginning to end</p>
+            <p className="text-xs text-muted-foreground mt-1">
+              From beginning to end
+            </p>
           </div>
         </div>
 
         <div className="h-[350px] mt-4">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#444" opacity={0.1} />
-              <XAxis dataKey="date" stroke="#888" fontSize={12} tickLine={false} />
-              <YAxis stroke="#888" fontSize={12} tickLine={false} axisLine={false} domain={[0, "dataMax + 100"]} />
+            <LineChart
+              data={data}
+              margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+            >
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="#444"
+                opacity={0.1}
+              />
+              <XAxis
+                dataKey="date"
+                stroke="#888"
+                fontSize={12}
+                tickLine={false}
+              />
+              <YAxis
+                stroke="#888"
+                fontSize={12}
+                tickLine={false}
+                axisLine={false}
+                domain={[0, "dataMax + 100"]}
+              />
               <Tooltip content={<CustomTooltip />} />
               <Legend />
               <Line
@@ -211,5 +269,5 @@ export function LearningAnalyticsGraph() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

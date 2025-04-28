@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { Progress } from "@/components/ui/progress"
-import { Trophy } from "lucide-react"
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { Trophy } from "lucide-react";
 
 export interface Achievement {
-  id: number
-  title: string
-  description: string
-  progress: number
-  icon: string
+  id: number;
+  title: string;
+  description: string;
+  progress: number;
+  icon: string;
 }
 
 interface AchievementsListProps {
-  achievements: Achievement[]
+  achievements: Achievement[];
 }
 
 export function AchievementsList({ achievements }: AchievementsListProps) {
@@ -36,9 +36,13 @@ export function AchievementsList({ achievements }: AchievementsListProps) {
               <div className="flex-1">
                 <div className="flex justify-between items-center">
                   <h4 className="font-medium">{achievement.title}</h4>
-                  <span className="text-sm font-semibold">{achievement.progress}%</span>
+                  <span className="text-sm font-semibold">
+                    {achievement.progress}%
+                  </span>
                 </div>
-                <p className="text-xs text-muted-foreground">{achievement.description}</p>
+                <p className="text-xs text-muted-foreground">
+                  {achievement.description}
+                </p>
               </div>
             </div>
             <Progress value={achievement.progress} className="h-2 mt-2" />
@@ -49,5 +53,5 @@ export function AchievementsList({ achievements }: AchievementsListProps) {
         View All Achievements <Trophy className="h-4 w-4" />
       </Button>
     </div>
-  )
+  );
 }

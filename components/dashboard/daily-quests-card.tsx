@@ -1,18 +1,20 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
-import { Flag } from "lucide-react"
-import { QuestItem, type Quest } from "./quest-item"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { Flag } from "lucide-react";
+import { QuestItem, type Quest } from "./quest-item";
 
 interface DailyQuestsCardProps {
-  quests: Quest[]
+  quests: Quest[];
 }
 
 export function DailyQuestsCard({ quests }: DailyQuestsCardProps) {
   // Calculate quest completion stats
-  const completedQuests = quests.filter((q) => q.completed).length
-  const totalXpEarned = quests.filter((q) => q.completed).reduce((sum, q) => sum + q.xp, 0)
-  const totalXpAvailable = quests.reduce((sum, q) => sum + q.xp, 0)
+  const completedQuests = quests.filter((q) => q.completed).length;
+  const totalXpEarned = quests
+    .filter((q) => q.completed)
+    .reduce((sum, q) => sum + q.xp, 0);
+  const totalXpAvailable = quests.reduce((sum, q) => sum + q.xp, 0);
 
   return (
     <Card className="w-full">
@@ -30,7 +32,10 @@ export function DailyQuestsCard({ quests }: DailyQuestsCardProps) {
               +{totalXpEarned}/{totalXpAvailable} XP
             </Badge>
           </div>
-          <Progress value={(completedQuests / quests.length) * 100} className="h-2 mt-1" />
+          <Progress
+            value={(completedQuests / quests.length) * 100}
+            className="h-2 mt-1"
+          />
         </div>
       </CardHeader>
       <CardContent className="space-y-3">
@@ -39,15 +44,15 @@ export function DailyQuestsCard({ quests }: DailyQuestsCardProps) {
           .sort((a, b) => {
             // Sort by completion status (incomplete first)
             if (a.completed !== b.completed) {
-              return a.completed ? 1 : -1
+              return a.completed ? 1 : -1;
             }
             // If same completion status, sort by XP (higher XP first)
-            return b.xp - a.xp
+            return b.xp - a.xp;
           })
           .map((quest) => (
             <QuestItem key={quest.id} quest={quest} />
           ))}
       </CardContent>
     </Card>
-  )
+  );
 }
